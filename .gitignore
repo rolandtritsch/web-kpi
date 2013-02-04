@@ -1,13 +1,16 @@
-*.class
-*.log
-
-# sbt specific
-dist/*
-target/
+# sbt/play specific
 lib_managed/
-src_managed/
-project/boot/
-project/plugins/project/
+logs
+project/project
+project/target
+target
+tmp
+dist
+.cache
 
 # Scala-IDE specific
 .scala_dependencies
+
+# Emacs-IDE specific
+*~
+#*
