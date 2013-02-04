@@ -1,5 +1,7 @@
 # Know Better Instantly
 
+A simple web-app to show/visualize the KPIs of an organisation in one place.
+
 # Use Cases
 
 ## Michelles View
@@ -27,7 +29,15 @@
 ## Developers View
 * Data Structure
 ** JSON
-** 
+** File Template
+*** yaml file (2 subdirectories) - timestamp and values
+
+## sample directory structure
+
+* email_deliverability --- kpi.yaml // KPI information (will be loaded into KPI.scala)
+                       |
+                       |
+                       --- values.yaml // timestamp-value pairs (will be loaded into KPIValues.scala)
 
 # Solution Architecture (Proposed)
 
@@ -35,6 +45,4 @@
 ## Number of tickets created per month for Infrastructure Engineering
 ## Email Deliverability 
 ## Stores platform
-
-A simple web-app to show/visualize the KPIs of an organisation in one place.
 
