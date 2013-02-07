@@ -8,32 +8,16 @@ import play.api.data.Forms._
 
 import models._
 
+import scala.io.Source
+
 object Application extends Controller {
-  val taskForm = Form(
-    "label" -> nonEmptyText
-  )
 
   def index = Action{
-    Redirect(routes.Application.tasks)
+    val jsonString = Source.fromFile("/web/web-kpi/resources/kpi.json").mkString
+    val kpis = KPI.getKPIs(jsonString)
+
+    println(kpis)
+    Ok(views.html.index(kpis))
   }
 
-  def tasks = Action{
-    Ok(views.html.index(Task.all(), taskForm))
-  }
-
-  def newTask = Action{
-    implicit request =>
-      taskForm.bindFromRequest.fold(
-        errors => BadRequest(views.html.index(Task.all(), errors)),
-        label => {
-          Task.create(label)
-          Redirect(routes.Application.tasks)
-        }
-     )
-  }
-
-  def deleteTask(id: Long) = Action{
-    Task.delete(id)
-    Redirect(routes.Application.tasks)
-  }
 }

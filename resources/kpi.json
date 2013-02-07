@@ -1,0 +1,17 @@
+{
+  "kpis": [
+            {
+              "name" : "email deliverability",
+              "description" : "Measures percent of emails that reached members inbox for the top 5 email clients.",
+              "owner" : "email-ops",
+              "target" : 100.00,
+              "deadline" : "-",
+              "historical_values" : [
+                                      {
+                                        "timestamp": "-",
+                                        "values": "99.98"
+                                      }
+                                  ]
+            }
+        ]
+}
