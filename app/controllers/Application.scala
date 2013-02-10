@@ -9,31 +9,19 @@ import play.api.data.Forms._
 import models._
 
 object Application extends Controller {
-  val taskForm = Form(
-    "label" -> nonEmptyText
+  val kpiForm = Form(
+    "name" -> nonEmptyText
   )
 
-  def index = Action{
-    Redirect(routes.Application.tasks)
+  def index = Action {
+    Redirect(routes.Application.kpis)
   }
 
-  def tasks = Action{
-    Ok(views.html.index(Task.all(), taskForm))
+  def kpis = Action {
+    Ok(views.html.list(KPI.all(), kpiForm))
   }
 
-  def newTask = Action{
-    implicit request =>
-      taskForm.bindFromRequest.fold(
-        errors => BadRequest(views.html.index(Task.all(), errors)),
-        label => {
-          Task.create(label)
-          Redirect(routes.Application.tasks)
-        }
-     )
-  }
-
-  def deleteTask(id: Long) = Action{
-    Task.delete(id)
-    Redirect(routes.Application.tasks)
+  def kpi(id: Int) = Action {
+    Ok(views.html.detail(KPI.get(id), kpiForm))
   }
 }

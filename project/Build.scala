@@ -5,7 +5,9 @@ import sbt.Keys._
 import play.Project._
 
 object WebKpiBuild extends Build {
-  val appDependencies = Nil
+  val appDependencies = Seq(
+    "org.scalaj" % "scalaj-time_2.9.2" % "0.6"
+  )
 
   val main = play.Project(
     "WebKPIApp", "1.0", appDependencies
