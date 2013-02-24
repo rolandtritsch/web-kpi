@@ -12,12 +12,20 @@ import scala.io.Source
 
 object Application extends Controller {
 
-  def index = Action{
-    val jsonString = Source.fromFile("/web/web-kpi/resources/kpi.json").mkString
-    val kpis = KPI.getKPIs(jsonString)
+  val kpiForm = Form(
+    "name" -> nonEmptyText
+  )
 
-    println(kpis)
-    Ok(views.html.index(kpis))
+  def index = Action {
+    Redirect(routes.Application.kpis)
   }
 
+  def kpis = Action {
+    println("KPI: " + KPI.getOneKpi())
+    Ok(views.html.list(KPI.all(), kpiForm))
+  }
+
+  def kpi(id: Int) = Action {
+    Ok(views.html.detail(KPI.get(id), kpiForm))
+  }
 }

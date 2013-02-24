@@ -1,0 +1,36 @@
+@(kpi: KPIHeader, kpiForm: Form[String])
+
+@import helper._
+
+@main("KPI detail") {
+  <h1>KPI @kpi.name</h1>
+  <center>
+    <table border="1">
+      <tr>
+        <td>@kpi.id</td>
+        <td>Unknown</td>
+        <td>@kpi.name</td>
+      </tr>
+      <tr>
+        <td>@kpi.owner</td>
+        <td>@kpi.target</td>
+        <td>@kpi.deadline</td>
+      </tr>
+    </table>
+  <center>
+  <hr>
+  <center>
+    <table border="1">
+      <tr>
+        <th>TimeStamp</th>
+        <th>Values</th>
+      </tr>
+      @kpi.historicalValues.map { v =>
+      <tr>
+        <td>@v.timestamp</td>
+        <td>@v.value</td>
+      </tr>
+      }
+    </table>
+  </center>
+}
