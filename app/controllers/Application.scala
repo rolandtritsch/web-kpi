@@ -21,7 +21,6 @@ object Application extends Controller {
   }
 
   def kpis = Action {
-    println("KPI: " + KPI.getOneKpi())
     Ok(views.html.list(KPI.all(), kpiForm))
   }
 

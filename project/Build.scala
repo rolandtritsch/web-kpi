@@ -10,9 +10,7 @@ object WebKpiBuild extends Build {
   val appVersion      = "1.0"
 
   val appDependencies = Seq(
-    "org.scalaj" % "scalaj-time_2.9.2" % "0.6",
-    "com.novus" %% "salat" % "1.9.2-SNAPSHOT",
-    "com.codahale" % "jerkson_2.9.1" % "0.5.0"
+    "org.scalaj" % "scalaj-time_2.9.2" % "0.6"
   )
 
   val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA).settings(

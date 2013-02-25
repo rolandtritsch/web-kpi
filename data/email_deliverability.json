@@ -1,0 +1,18 @@
+{
+	"id" : 0,
+	"name" : "Deliverability",
+	"description" : "The percent of emails reached our members inbox",
+	"owner" : "Email Operations",
+	"target" : 100.00,
+	"deadline" : "N/A",
+	"historicalValues" : [
+		{
+			"timestamp" : "2013-07-01T00:00:00.000-04:00",
+			"value" : 99.98	
+		},
+		{
+			"timestamp" : "2013-07-01T00:00:00.000-04:00",
+			"value" : 98.99	
+		}
+	]
+}

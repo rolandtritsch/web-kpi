@@ -84,7 +84,7 @@ To get the related KPI into the KPI server she initially uses the default plugin
 default plugin is file-based and allows to manually update a KPI. The plugin uses a
 directory structure with JSON files. Essentially 1 JSON file per KPI.
 
-EXAMPLE: see web-kpi/data/sample.json
+EXAMPLE: see web-kpi/data/samples/sample.json
 
 `
 data --

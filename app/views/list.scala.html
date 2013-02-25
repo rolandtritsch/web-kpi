@@ -1,15 +1,17 @@
 @(kpis: List[KPIHeader], kpiForm: Form[String])
 
 @import helper._
+@import org.joda.time.format.DateTimeFormat
 
 @main("KPI list") {
-  <h1>KPI Server (@kpis.size KPI(s))</h1>
+  <h1>KPI Server [@kpis.size KPI(s)]</h1>
   <table border="1">
     <tr>
       <th>Id</th>
       <th>Health</th>
       <th>Name</th>
       <th>Owner</th>
+      <th>Description</th>
       <th>Target</th>
       <th>Current</th>
       <th>Last</th>
@@ -21,8 +23,10 @@
         <td>Unknown</td>
         <td><a href="/kpi/@kpi.id">@kpi.name</a></td>
         <td>@kpi.owner</td>
+        <td>@kpi.description</td>
         <td>@kpi.target</td>
         <td>@kpi.historicalValues(0).value</td>
+        <td>@kpi.historicalValues(1).value</td>
         <td>@kpi.deadline</td>
       </tr>
     }
