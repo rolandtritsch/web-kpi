@@ -89,15 +89,9 @@ EXAMPLE: see web-kpi/data/samples/sample.json
 `
 data --
        |
-       |-- email_deliverability --- kpi.json // KPI information (will be loaded into KPI.scala)
-       |                           |
-       |                           |
-       |                            --- values.json // timestamp-value pairs (will be loaded into KPIValues.scala)
+       |-- email_deliverability.json // KPI information (will be loaded into KPI.scala)
        |
-        -- tickets_raised --------- kpi.json
-                                  |
-                                  |
-                                   --- values.json
+        -- galactica_tickets_raised.json 
 `
 
 Soon she gets tired to maintain and update the KPI values manually and decides to implement
