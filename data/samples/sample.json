@@ -4,14 +4,14 @@
 	"description" : "The number of tickets opened",
 	"owner" : "Galactica",
 	"target" : 50,
-	"deadline" : "N/A",
-	"historicalValues" : [
+	"deadline" : "03/30/2013",
+	"historical_values" : [
 		{
-			"timestamp" : "2013-07-01T00:00:00.000-04:00",
+			"timestamp" : "01/01/2013",
 			"value" : 35	
 		},
 		{
-			"timestamp" : "2013-07-01T00:00:00.000-04:00",
+			"timestamp" : "02/01/2013",
 			"value" : 40	
 		}
 	]

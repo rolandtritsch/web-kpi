@@ -4,15 +4,15 @@
 	"description" : "The percent of emails reached our members inbox",
 	"owner" : "Email Operations",
 	"target" : 100.00,
-	"deadline" : "N/A",
-	"historicalValues" : [
+	"deadline" : "03/31/2013",
+	"historical_values" : [
 		{
-			"timestamp" : "2013-07-01T00:00:00.000-04:00",
+			"timestamp" : "01/30/2013",
 			"value" : 99.98	
 		},
 		{
-			"timestamp" : "2013-07-01T00:00:00.000-04:00",
-			"value" : 98.99	
+			"timestamp" : "02/30/2013",
+			"value" : 98.98
 		}
 	]
 }

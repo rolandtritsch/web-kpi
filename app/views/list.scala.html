@@ -1,7 +1,6 @@
 @(kpis: List[KPIHeader], kpiForm: Form[String])
 
 @import helper._
-@import org.joda.time.format.DateTimeFormat
 
 @main(Html("KPI List")) {
   
@@ -28,9 +27,10 @@
           <td>@kpi.owner</td>
           <td>@kpi.description</td>
           <td>@kpi.target</td>
-          <td>@kpi.historicalValues(0).value</td>
-          <td>@kpi.historicalValues(1).value</td>
-          <td>@kpi.deadline</td>
+          @for(historicalValue <- kpi.historicalValues) {
+            <td>@historicalValue.value</td>
+          }
+          <td>@kpi.date.toString("dd-MM-yyyy")</td>
         </tr>
       }
     </table>
