@@ -30,7 +30,7 @@
           @for(historicalValue <- kpi.historicalValues) {
             <td>@historicalValue.value</td>
           }
-          <td>@kpi.date.toString("dd-MM-yyyy")</td>
+          <td>@kpi.date.toString("MM-dd-yyyy")</td>
         </tr>
       }
     </table>

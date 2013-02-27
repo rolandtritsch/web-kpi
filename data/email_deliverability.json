@@ -8,11 +8,11 @@
 	"historical_values" : [
 		{
 			"timestamp" : "01/30/2013",
-			"value" : 99.98	
+			"value" : 99.99
 		},
 		{
 			"timestamp" : "02/30/2013",
-			"value" : 98.98
+			"value" : 98.97
 		}
 	]
 }
