@@ -6,6 +6,32 @@
 
   <h2>@kpi.header.name</h2>
 
+  <script>
+    $(document).ready(function() {
+      var chart = new Highcharts.Chart({
+        chart: {
+          renderTo: 'chart-container',
+          type: 'line'
+        },
+        title: {
+          text: 'History'
+        },
+        xAxis: {
+          categories: [@kpi.hCxAxis.mkString(",")]
+        },
+        yAxis: {
+          title: {
+            text: 'Value'
+          }
+        },
+        series: [{
+          name: 'Value',
+          data: [@kpi.hCyValues.mkString(",")]
+        }]
+      });
+    });
+  </script>
+
   <div class="container">
     <table class="table table-striped table-hover">
       <tr>
@@ -20,8 +46,7 @@
       </tr>
     </table>
     <hr>
-    @kpi.chart.saveAsPNG(new java.io.File("./public/history.png"), (600, 300))
-    <img src="/assets/history.png" alt="History" width="600" height="300">
+    <div id="chart-container" style="width:100%; height:400px;"></div>
     <hr>
     <table class="table table-striped table-hover">
       <tr>

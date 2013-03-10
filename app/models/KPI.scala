@@ -2,9 +2,6 @@ package models
 
 import org.scala_tools.time.Imports._
 
-import scalax.chart._
-import scalax.chart.Charting._
-
 case class KPIValue(timestamp: DateTime, value: Double)
 
 case class KPIHeader(
@@ -19,7 +16,8 @@ case class KPIHeader(
 case class KPI(
   header: KPIHeader,
   values: List[KPIValue],
-  chart: XYChart
+  hCxAxis: List[Int],
+  hCyValues: List[Double]
 )
 
 object KPI {
@@ -53,8 +51,11 @@ object KPI {
         KPIValue(DateTime.now - 0.month, 40.0)
       ),
       List(
+        KPIValue(DateTime.now - 12.month, 50.0),
+        KPIValue(DateTime.now - 9.month, 80.0),
+        KPIValue(DateTime.now - 8.month, 60.0),
         KPIValue(DateTime.now - 6.month, 80.0),
-        KPIValue(DateTime.now - 4.month, 90.0)
+        KPIValue(DateTime.now - 2.month, 90.0)
       )
     )
   )
@@ -62,13 +63,9 @@ object KPI {
   def init(headers: List[KPIHeader], values: List[List[KPIValue]]): List[KPI] = {
     val rightNow = DateTime.now
     for(i <- (0 until headers.size).toList; h = headers(i); vs = values(i)) yield {
-       val data = vs.map(v => {
-         val daysAgo = (v.timestamp to rightNow).toDuration.toStandardDays.getDays
-         (daysAgo, v.value)
-       })
-       val dataset = data.toXYSeriesCollection("")
-       val chart = XYLineChart(dataset)
-       KPI(h, vs, chart)
+       val xAxis = vs.map(v => (v.timestamp to rightNow).toDuration.toStandardDays.getDays)
+       val yValues = vs.map(v => v.value)
+       KPI(h, vs, xAxis, yValues)
     }
   }
 
