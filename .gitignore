@@ -18,3 +18,7 @@ dist
 # Emacs-IDE specific
 *~
 #*
+
+# ensime specific
+.ensime
+.ensime_lucene/

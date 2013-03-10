@@ -7,9 +7,7 @@ import play.api.data.Forms._
 
 import models._
 
-
 object Application extends Controller {
-
   val kpiForm = Form(
     "name" -> nonEmptyText
   )
