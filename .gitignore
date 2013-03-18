@@ -1,1 +1,29 @@
-../../Gilt/user-rtritsch/templates/gitignore
+# sbt/play specific
+lib_managed/
+logs
+project/project
+project/target
+target
+tmp
+dist
+.cache
+
+# intellij specific
+.idea*
+*.iml
+
+# Scala-IDE specific
+.scala_dependencies
+
+# Emacs-IDE specific
+*~
+#*
+
+# ensime specific
+.ensime
+.ensime_lucene/
+ensime.sbt
+project/ensime-plugin.sbt
+
+# Mac OS specific
+.DS_Store
