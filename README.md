@@ -82,17 +82,7 @@ done. They can do it themselves, thus reducing the number of JIRA tickets raised
 
 To get the related KPI into the KPI server she initially uses the default plugin. The
 default plugin is file-based and allows to manually update a KPI. The plugin uses a
-directory structure with JSON files. Essentially 1 JSON file per KPI.
-
-EXAMPLE: see web-kpi/data/samples/sample.json
-
-`
-data --
-       |
-       |-- email_deliverability.json // KPI information (will be loaded into KPI.scala)
-       |
-        -- galactica_tickets_raised.json 
-`
+directory structure with JSON files. Essentially one JSON file per KPI.
 
 Soon she gets tired to maintain and update the KPI values manually and decides to implement
 a plugin for the KPI that will look up the values of the KPI automatically. She decides to
@@ -106,9 +96,3 @@ and test the plugin and 10 minutes to deploy the implementation to production.
 out to open source this
 * Initailly no local storage besides the file system, but we could see that sooner or later
 the data is stored in a database
-
-## Proposed prototype KPIs
-
-* Number of tickets created per month for Infrastructure Engineering
-* Email Deliverability
-* Stores platform
