@@ -6,51 +6,6 @@
 
   <h2>@kpi.name</h2>
 
-  <script>
-    $(document).ready(function() {
-      var dataArray = new Array();
-      @for(v <- kpi.values) {
-      dataArray.push(new Array(@v.timestamp.getMillis, @v.value));
-      }
-
-      var targetArray = new Array();
-      @for(v <- kpi.values) {
-      targetArray.push(new Array(@v.timestamp.getMillis, @kpi.target));
-      }
-
-      var chart = new Highcharts.Chart({
-        chart: {
-          renderTo: 'chart-container',
-          type: 'line'
-        },
-        title: {
-          text: 'History'
-        },
-        xAxis: {
-          type: 'datetime',
-          labels: {
-            formatter: function() {
-              return Highcharts.dateFormat('%b-%y', this.value);
-            }
-          }
-        },
-        yAxis: {
-          title: {
-            text: '@kpi.unit'
-          }
-        },
-        series: [{
-          name: 'Values',
-          data: dataArray
-          },{
-          name: 'Target',
-          data: targetArray,
-          color: '#FF0000'
-        }]
-      });
-    });
-  </script>
-
   <div class="container">
     <table class="table table-striped table-hover">
       <tr>
@@ -64,9 +19,85 @@
         <td>@kpi.deadline</td>
       </tr>
     </table>
+
     <hr>
-    <div id="chart-container" style="width:100%; height:400px;"></div>
+    <!-- this is based on http://alignedleft.com/tutorials/d3 -->
+    <div id="charting-area" style="text-align:center">
+      <script type="text/javascript">
+        // constants
+        var w = 1000; var h = 300;
+        var barPadding = 1;
+        var xAxisPadding = 20;
+
+        // the dataset
+        var dataset = [ @kpi.values.map(v => v.value).mkString(",") ];
+
+        // the x/yScale
+        var yScale = d3.scale.linear().domain([
+          @kpi.values.map(v => v.value).min * 0.8,
+          @kpi.values.map(v => v.value).max * 1.2
+        ]).range([0, h]);
+
+        var xScale = d3.time.scale().domain([
+          new Date(@kpi.values(0).timestamp.toDate.getTime),
+          new Date(@kpi.values(kpi.values.size-1).timestamp.toDate.getTime)
+        ]).range([0, w]);
+
+        // create the svg charting area
+        var svg = d3.select("#charting-area")
+          .append("svg")
+          .attr("width", w)
+          .attr("height", h)
+        ;
+
+        // create all the bars
+        svg.selectAll("rect")
+          .data(dataset)
+          .enter()
+          .append("rect")
+          .attr("x", function(d, i) {
+            return i * (w/dataset.length);
+          })
+          .attr("y", function(d) {
+            return h - yScale(d) - (xAxisPadding * 1.1);
+          })
+          .attr("width", w / dataset.length - barPadding)
+          .attr("height", function(d) {
+            return yScale(d);
+          })
+          .attr("fill", "grey")
+        ;
+
+        // write the value of the bar into the top of the bar
+        svg.selectAll("text")
+          .data(dataset)
+          .enter()
+          .append("text")
+          .text(function(d) {
+            return d;
+          })
+          .attr("x", function(d, i) {
+            return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
+          })
+          .attr("y", function(d) {
+            return h - yScale(d) - (xAxisPadding * 1.1) + 14;
+          })
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "11px")
+          .attr("fill", "white")
+          .attr("text-anchor", "middle")
+        ;
+
+        // add an axis at the buttom
+        svg.append("g")
+          .attr("class", "axis")
+          .attr("transform", "translate(0," + (h - xAxisPadding) + ")")
+          .call(d3.svg.axis().scale(xScale).orient("bottom").ticks(@kpi.values.size))
+        ;
+      </script>
+    </div>
     <hr>
+
     <table class="table table-striped table-hover">
       <tr>
         <th>TimeStamp</th>
