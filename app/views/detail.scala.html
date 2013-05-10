@@ -21,82 +21,35 @@
     </table>
 
     <hr>
-    <!-- this is based on http://alignedleft.com/tutorials/d3 -->
-    <div id="charting-area" style="text-align:center">
-      <script type="text/javascript">
-        // constants
-        var w = 1000; var h = 300;
-        var barPadding = 1;
-        var xAxisPadding = 20;
-
-        // the dataset
-        var dataset = [ @kpi.values.map(v => v.value).mkString(",") ];
-
-        // the x/yScale
-        var yScale = d3.scale.linear().domain([
-          @kpi.values.map(v => v.value).min * 0.8,
-          @kpi.values.map(v => v.value).max * 1.2
-        ]).range([0, h]);
-
-        var xScale = d3.time.scale().domain([
-          new Date(@kpi.values(0).timestamp.toDate.getTime),
-          new Date(@kpi.values(kpi.values.size-1).timestamp.toDate.getTime)
-        ]).range([0, w]);
-
-        // create the svg charting area
-        var svg = d3.select("#charting-area")
-          .append("svg")
-          .attr("width", w)
-          .attr("height", h)
-        ;
-
-        // create all the bars
-        svg.selectAll("rect")
-          .data(dataset)
-          .enter()
-          .append("rect")
-          .attr("x", function(d, i) {
-            return i * (w/dataset.length);
-          })
-          .attr("y", function(d) {
-            return h - yScale(d) - (xAxisPadding * 1.1);
-          })
-          .attr("width", w / dataset.length - barPadding)
-          .attr("height", function(d) {
-            return yScale(d);
-          })
-          .attr("fill", "grey")
-        ;
-
-        // write the value of the bar into the top of the bar
-        svg.selectAll("text")
-          .data(dataset)
-          .enter()
-          .append("text")
-          .text(function(d) {
-            return d;
-          })
-          .attr("x", function(d, i) {
-            return i * (w / dataset.length) + (w / dataset.length - barPadding) / 2;
-          })
-          .attr("y", function(d) {
-            return h - yScale(d) - (xAxisPadding * 1.1) + 14;
-          })
-          .attr("font-family", "sans-serif")
-          .attr("font-size", "11px")
-          .attr("fill", "white")
-          .attr("text-anchor", "middle")
-        ;
-
-        // add an axis at the buttom
-        svg.append("g")
-          .attr("class", "axis")
-          .attr("transform", "translate(0," + (h - xAxisPadding) + ")")
-          .call(d3.svg.axis().scale(xScale).orient("bottom").ticks(@kpi.values.size))
-        ;
-      </script>
-    </div>
+    <canvas id="myChart" width="1000" height="400"></canvas>
     <hr>
+
+    <script>
+      // get the data
+      var labelArray = [@Html(kpi.values.map(_.timestamp.toString("''MMM-yy''")).mkString(","))];
+      var dataArray = [@kpi.values.map(_.value).mkString(",")];
+      var targetArray = [@kpi.values.map(v => kpi.target).mkString(",")];
+      var options = {
+        datasetFill: true
+      }
+
+      var data = {
+        labels: labelArray,
+        datasets: [{
+          fillColor : "rgba(0,0,0,0.0)",
+          strokeColor : "rgba(255,0,0,1)",
+          data: targetArray
+          },{
+          fillColor : "rgba(220,220,220,0.5)",
+          strokeColor : "rgba(220,220,220,1)",
+          data: dataArray
+        }]
+      }
+
+      // Get the context of the canvas element we want to select
+      var ctx = document.getElementById("myChart").getContext("2d");
+      var myNewChart = new Chart(ctx).Line(data, options);
+    </script>
 
     <table class="table table-striped table-hover">
       <tr>
