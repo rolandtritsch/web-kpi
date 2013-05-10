@@ -4,43 +4,27 @@ import org.scala_tools.time.Imports._
 
 case class KPIValue(timestamp: DateTime, value: Double)
 
-case class KPIHeader(
+case class KPI(
   id: Long,
   name: String,
   description: String,
   owner: String,
   target: Double,
-  deadline: DateTime
-)
-
-case class KPI(
-  header: KPIHeader,
-  values: List[KPIValue],
-  hCxAxis: List[Int],
-  hCyValues: List[Double]
+  deadline: DateTime,
+  unit: String,
+  values: List[KPIValue]
 )
 
 object KPI {
-  val kpis = init(
-    List(
-      KPIHeader(
-        0,
-        "TicketsRaised",
-        "Number of Tickets raised in the last 4 weeks",
-        "Galactica",
-        40.0,
-        DateTime.now + 6.month
-      ),
-      KPIHeader(
-        1,
-        "ConsolidationIndex",
-        "How consolidated the stores are",
-        "Stores",
-        100.0,
-        DateTime.now + 6.month
-      )
-    ),
-    List(
+  val kpis = List(
+    KPI(
+      0,
+      "TicketsRaised",
+      "Number of Tickets raised in the last 4 weeks",
+      "Galactica",
+      40.0,
+      DateTime.now + 6.month,
+      "Number of Tickets raised",
       List(
         KPIValue(DateTime.now - 6.month, 80.0),
         KPIValue(DateTime.now - 5.month, 70.0),
@@ -49,25 +33,31 @@ object KPI {
         KPIValue(DateTime.now - 2.month, 55.0),
         KPIValue(DateTime.now - 1.month, 50.0),
         KPIValue(DateTime.now - 0.month, 40.0)
-      ),
+      )
+    ),
+    KPI(
+      1,
+      "TestKpi",
+      "Lots of numbers to test the graph",
+      "Team",
+      100.0,
+      DateTime.now + 12.month,
+      "Percentage improvement",
       List(
         KPIValue(DateTime.now - 12.month, 50.0),
-        KPIValue(DateTime.now - 9.month, 80.0),
-        KPIValue(DateTime.now - 8.month, 60.0),
-        KPIValue(DateTime.now - 6.month, 80.0),
+        KPIValue(DateTime.now - 11.month, 80.0),
+        KPIValue(DateTime.now - 10.month, 70.0),
+        KPIValue(DateTime.now - 9.month, 85.0),
+        KPIValue(DateTime.now - 8.month, 90.0),
+        KPIValue(DateTime.now - 7.month, 100.0),
+        KPIValue(DateTime.now - 6.month, 110.0),
+        KPIValue(DateTime.now - 5.month, 80.0),
+        KPIValue(DateTime.now - 4.month, 85.0),
+        KPIValue(DateTime.now - 3.month, 100.0),
         KPIValue(DateTime.now - 2.month, 90.0)
       )
     )
   )
-
-  def init(headers: List[KPIHeader], values: List[List[KPIValue]]): List[KPI] = {
-    val rightNow = DateTime.now
-    for(i <- (0 until headers.size).toList; h = headers(i); vs = values(i)) yield {
-       val xAxis = vs.map(v => (v.timestamp to rightNow).toDuration.toStandardDays.getDays)
-       val yValues = vs.map(v => v.value)
-       KPI(h, vs, xAxis, yValues)
-    }
-  }
 
   def all(): List[KPI] = {
     kpis

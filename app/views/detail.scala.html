@@ -4,10 +4,20 @@
 
 @main(Html("KPI Detail")) {
 
-  <h2>@kpi.header.name</h2>
+  <h2>@kpi.name</h2>
 
   <script>
     $(document).ready(function() {
+      var dataArray = new Array();
+      @for(v <- kpi.values) {
+      dataArray.push(new Array(@v.timestamp.getMillis, @v.value));
+      }
+
+      var targetArray = new Array();
+      @for(v <- kpi.values) {
+      targetArray.push(new Array(@v.timestamp.getMillis, @kpi.target));
+      }
+
       var chart = new Highcharts.Chart({
         chart: {
           renderTo: 'chart-container',
@@ -17,16 +27,25 @@
           text: 'History'
         },
         xAxis: {
-          categories: [@kpi.hCxAxis.mkString(",")]
+          type: 'datetime',
+          labels: {
+            formatter: function() {
+              return Highcharts.dateFormat('%b-%y', this.value);
+            }
+          }
         },
         yAxis: {
           title: {
-            text: 'Value'
+            text: '@kpi.unit'
           }
         },
         series: [{
-          name: 'Value',
-          data: [@kpi.hCyValues.mkString(",")]
+          name: 'Values',
+          data: dataArray
+          },{
+          name: 'Target',
+          data: targetArray,
+          color: '#FF0000'
         }]
       });
     });
@@ -35,14 +54,14 @@
   <div class="container">
     <table class="table table-striped table-hover">
       <tr>
-        <td>@kpi.header.id</td>
-        <td>Unknown</td>
-        <td>@kpi.header.name</td>
+        <td>@kpi.id</td>
+        <td><img src="@routes.Assets.at("images/blue.png")"></td>
+        <td>@kpi.name</td>
       </tr>
       <tr>
-        <td>@kpi.header.owner</td>
-        <td>@kpi.header.target</td>
-        <td>@kpi.header.deadline</td>
+        <td>@kpi.owner</td>
+        <td>@kpi.target</td>
+        <td>@kpi.deadline</td>
       </tr>
     </table>
     <hr>

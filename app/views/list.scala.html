@@ -20,15 +20,15 @@
       </tr>
       @kpis.map { kpi =>
         <tr>
-          <td>@kpi.header.id</td>
+          <td>@kpi.id</td>
           <td><img src="@routes.Assets.at("images/blue.png")"></td>
-          <td><a href="/kpi/@kpi.header.id">@kpi.header.name</a></td>
-          <td>@kpi.header.owner</td>
-          <td>@kpi.header.description</td>
-          <td>@kpi.header.target</td>
+          <td><a href="/kpi/@kpi.id">@kpi.name</a></td>
+          <td>@kpi.owner</td>
+          <td>@kpi.description</td>
+          <td>@kpi.target</td>
           <td>@kpi.values(0).value</td>
           <td>@kpi.values(1).value</td>
-          <td>@kpi.header.deadline</td>
+          <td>@kpi.deadline</td>
         </tr>
       }
     </table>
